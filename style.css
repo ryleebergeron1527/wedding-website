@@ -1,55 +1,155 @@
 body {
-    font-family: 'Georgia', serif;
-    background-color: #fdfaf6;
-    color: #333;
     margin: 0;
-    padding: 0;
-  }
-  
-  header {
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgb(27, 25, 25);
+    font-family: "freight-display-pro", serif;
+    background-color: white;
+    color: #333;
     text-align: center;
-  }
+}
   
-  nav {
-    background-color: #fff;
-    padding: 1em;
-    text-align: center;
-  }
+.title {
+    font-family: "la-bohemienne", cursive;
+    font-size: 3rem;
+    margin-top: 1.5rem;
+    color: #eeaba4;
+}
   
-  nav a {
-    margin: 0 15px;
-    color: #c96799;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  nav a:hover {
-    text-decoration: underline;
-  }
-  
-  main {
-    padding: 2em;
-  }
-  
-  footer {
-    background-color: #f8e1e1;
-    text-align: center;
-    padding: 1em;
-    margin-top: 2em;
+.navbar {
+    background-color: #fcd8db; /* Light pink from your palette */
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    
   }
 
-  body {
+.title-font {
+    font-family: cursive;
+    font-size: 3rem;
+}
+  
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    list-style: none;
     margin: 0;
     padding: 0;
-    background-color: #fefaf6; 
-    font-family: 'Georgia', serif;
-    color: #222;
-    text-align: center;
+    gap: 2rem;
+    font-family: 'Garamond', serif;
   }
- 
   
+  .nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+  }
+  
+  .nav-links a:hover {
+    color: #ee96b1; /* Pink accent color */
+  }
+  
+  
+.hero-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+  
+.details {
+    margin: 2rem auto;
+    font-size: 1.25rem;
+    color: #333;
+}
+  
+.wedding-crest {
+    text-align: center;
+    margin: 0.5rem;
+}
+  
+.wedding-crest img {
+    width: 500px; /* adjust as needed */
+    height: auto;
+    display: inline-block;
+}
+  
+  
+footer {
+    background-color: #eeaba4;
+    color: white;
+    padding: 0.5rem;
+    margin-top: 3rem;
+}
+  
+.party-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+  
+.party-card img {
+    width: 100%;
+    border-radius: 12px;
+}
+  
+.party-card h3 {
+    font-family: "la-bohemienne", cursive;
+    margin: 0.5rem 0;
+}
+  
+.hero-banner {
+    position: relative;
+    width: 100%;
+    height: 60vh; 
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  
+  .hero-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(70%);
+  }
+  
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-family: 'La Bohemienne', cursive;
+  }
+  
+  .hero-text h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-text p {
+    font-size: 1.25rem;
+    font-family: 'Freight Display Pro', serif;
+  }
+  
+  .wedding-date {
+    font-family: cursive;
+    font-size: 1.5rem;
+  }
+
+  .wedding-year {
+    font-family: cursive;
+    font-size: 1.25rem;
+  }
+
+  .wedding-time {
+    font-family: cursive;
+  }
+
+  .wedding-location {
+    font-family: cursive;
+  }
