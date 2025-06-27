@@ -20,7 +20,7 @@ body {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    
+    overflow-x: auto;
   }
 
 .title-font {
@@ -32,6 +32,7 @@ body {
     display: flex;
     justify-content: center;
     list-style: none;
+    flex-wrap: wrap;
     margin: 0;
     padding: 0;
     gap: 2rem;
@@ -58,6 +59,34 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
   
+@media (max-width: 600px) {
+    .title-font {
+      font-size: 2rem;
+      text-align: center;
+    }
+  
+    .details p {
+      font-size: 1rem;
+      text-align: center;
+      padding: 0 1rem;
+    }
+  
+    .nav-links {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+* {
+    box-sizing: border-box;
+}
+  
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+  
+
 .details {
     margin: 2rem auto;
     font-size: 1.25rem;
@@ -70,7 +99,7 @@ body {
 }
   
 .wedding-crest img {
-    width: 500px; /* adjust as needed */
+    width: 500px; 
     height: auto;
     display: inline-block;
 }
