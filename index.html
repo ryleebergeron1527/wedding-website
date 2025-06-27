@@ -14,41 +14,46 @@
         if (userInput !== password) {
           document.body.innerHTML = "<h1 style='text-align:center;'>Access Denied</h1>";
         }
-      </script>
-      
-    <nav class="navbar">
-        <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-          <li><a href="wedding-party.html">Wedding Party</a></li>
-          <li><a href="faq.html">Q & A</a></li>
-          <li><a href="travel.html">Travel</a></li>
-          <li><a href="things-to-do.html">Things to Do</a></li>
-          <li><a href="registry.html">Registry</a></li>
-          <li><a href="rsvp.html">RSVP</a></li>
-        </ul>
-    </nav>
-    <header class="hero-banner">
-        <img src="images/banner-pic.jpeg" alt="Maddie and Tyler Banner" />
-    </header>
+    </script>
+    <div id="site-content" style="display:none;"></div>
+        <nav class="navbar">
+            <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="wedding-party.html">Wedding Party</a></li>
+            <li><a href="faq.html">Q & A</a></li>
+            <li><a href="travel.html">Travel</a></li>
+            <li><a href="things-to-do.html">Things to Do</a></li>
+            <li><a href="registry.html">Registry</a></li>
+            <li><a href="rsvp.html">RSVP</a></li>
+            </ul>
+        </nav>
+        <header class="hero-banner">
+            <img src="images/banner-pic.jpeg" alt="Maddie and Tyler Banner" />
+        </header>
 
-    <main>
-        <div class="wedding-crest">
-            <img src="images/crest.png" alt="crest"/>
-        </div>
-        <div>
-            <h1 class="title-font">Maddie and Tyler</h1>
-        </div>
-        <section class="details">
-            <p class="wedding-date">Saturday, the Twenty-Third of May</p>
-            <p class="wedding-year">Two Thousand Twenty-Six</p>
-            <p class="wedding-time">at four o’clock in the afternoon</p>
-            <p class="wedding-location">Linehan Chapel, Nazareth University<br>Rochester, New York</p>
-        </section>
-    </main>
+        <main>
+            <div class="wedding-crest">
+                <img src="images/crest.png" alt="crest"/>
+            </div>
+            <div>
+                <h1 class="title-font">Maddie and Tyler</h1>
+            </div>
+            <section class="details">
+                <p class="wedding-date">Saturday, the Twenty-Third of May</p>
+                <p class="wedding-year">Two Thousand Twenty-Six</p>
+                <p class="wedding-time">at four o’clock in the afternoon</p>
+                <p class="wedding-location">Linehan Chapel, Nazareth University<br>Rochester, New York</p>
+            </section>
+        </main>
 
-    <footer>
-        <p>© 2025 Rylee Bergeron</p>
-    </footer>
+        <footer>
+            <p>© 2025 Rylee Bergeron</p>
+        </footer>
+    <script>
+        if (userInput === password) {
+            document.getElementById('site-content').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
