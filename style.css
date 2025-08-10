@@ -1,13 +1,8 @@
 
-.imperial-script-regular {
-  font-family: "Imperial Script", cursive;
-  font-weight: 400;
-  font-style: normal;
-}
 
 body {
     margin: 0;
-    font-family: "freight-display-pro", serif;
+    font-family: "Playfair Display", serif;
     background-color: white;
     color: #333;
     text-align: center;
@@ -16,7 +11,7 @@ body {
 
 
 .title {
-    font-family: "la-bohemienne", cursive;
+   font-family: "Petit Formal Script", cursive;
     font-size: 3rem;
     margin-top: 1.5rem;
     color: #eeaba4;
@@ -33,9 +28,10 @@ body {
   }
 
 .title-font {
-    font-family: "Imperial Script", cursive;
-    font-weight: 400;
-    font-size: 6rem;
+    font-family: "Petit Formal Script", cursive;
+    font-weight: 800;
+    font-size: 5rem;
+
 }
   
   .nav-links {
@@ -46,7 +42,7 @@ body {
     margin: 0;
     padding: 0;
     gap: 2rem;
-    font-family: 'Garamond', serif;
+    font-family: "Playfair Display", serif;
   }
   
   .nav-links a {
@@ -135,17 +131,28 @@ footer {
 }
   
 .party-card h3 {
-    font-family: "la-bohemienne", cursive;
+    font-family: "Petit Formal Script", cursive;
     margin: 0.5rem 0;
 }
   
 .hero-banner {
-    position: relative;
-    width: 100%;
-    height: 60vh; 
-    overflow: hidden;
-    margin-bottom: 0;
-  }
+  height: 1000px;       /* adjust to desired visible height */
+  overflow: hidden;    /* hide anything outside container */
+}
+
+.hero-banner img {
+  width: 100%;
+  height: auto;        /* keep natural proportions */
+  display: block;
+  position: relative;
+  object-position: 50% 80%;          /* anchor to bottom of container */
+  object-fit: cover;   /* ensures full coverage */
+  object-position: bottom; /* keeps the bottom in view */
+}
+
+
+
+
   
   .hero-banner img {
     width: 100%;
@@ -162,7 +169,7 @@ footer {
     transform: translate(-50%, -50%);
     text-align: center;
     color: white;
-    font-family: 'La Bohemienne', cursive;
+    font-family: "Petit Formal Script", cursive;
   }
   
   .hero-text h1 {
@@ -172,23 +179,27 @@ footer {
   
   .hero-text p {
     font-size: 1.25rem;
-    font-family: 'Freight Display Pro', serif;
+    font-family: "Playfair Display", serif;
+  }
+
+  .section-title {
+    font-family: "Petit Formal Script", cursive;
   }
   
   .wedding-date {
-    font-family: cursive;
+    font-family: "Petit Formal Script", cursive;
     font-size: 1.5rem;
   }
 
   .wedding-year {
-    font-family: cursive;
+    font-family: "Petit Formal Script", cursive;
     font-size: 1.25rem;
   }
 
   .wedding-time {
-    font-family: cursive;
+    font-family: "Petit Formal Script", cursive;
   }
 
   .wedding-location {
-    font-family: cursive;
+    font-family: "Petit Formal Script", cursive;
   }

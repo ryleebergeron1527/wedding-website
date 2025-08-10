@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
   <title>Maddie & Tyler</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* minimal gate styles (safe alongside your style.css) */
     #gate {
       min-height: 100svh; display:flex; align-items:center; justify-content:center;
       background:#f6f6f8; padding: 2rem;
@@ -32,7 +31,6 @@
   </style>
 </head>
 <body>
-  <!-- Password gate -->
   <section id="gate" role="dialog" aria-modal="true">
     <div class="gate-card">
       <h1>Enter Password</h1>
@@ -46,7 +44,6 @@
     </div>
   </section>
 
-  <!-- Your real site content (hidden until unlocked) -->
   <nav class="navbar" hidden>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -84,7 +81,6 @@
   </footer>
 
   <script>
-    // Token key and password hash (SHA-256 of "NYE2018")
     const TOKEN_KEY = "site_unlocked_v1";
     const PASSWORD_HASH_HEX = "c4249c08017aa7d6cc5a2c520b5170c8b24f5d440fbbe39571bc81ea01b12f94";
 
