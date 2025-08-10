@@ -7,14 +7,11 @@ body {
     color: #333;
     text-align: center;
 }
-  
-
 
 .title {
-   font-family: "Petit Formal Script", cursive;
+    font-family: "Petit Formal Script", cursive;
     font-size: 3rem;
     margin-top: 1.5rem;
-    color: #eeaba4;
 }
   
 .navbar {
@@ -150,8 +147,20 @@ footer {
   object-position: bottom; /* keeps the bottom in view */
 }
 
+.gallery {
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  align-items: center;    /* center images horizontally */
+  padding: 20px;          /* space on the sides & top/bottom */
+  gap: 20px;              /* space between images */
+}
 
-
+.gallery img {
+  width: 100%;
+  max-width: 600px;       /* keeps images from getting too wide */
+  border-radius: 8px;     /* optional rounded corners */
+  display: block;
+}
 
   
   .hero-banner img {
