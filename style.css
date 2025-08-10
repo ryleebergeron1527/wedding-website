@@ -1,3 +1,10 @@
+
+.imperial-script-regular {
+  font-family: "Imperial Script", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
     margin: 0;
     font-family: "freight-display-pro", serif;
@@ -6,6 +13,8 @@ body {
     text-align: center;
 }
   
+
+
 .title {
     font-family: "la-bohemienne", cursive;
     font-size: 3rem;
@@ -24,8 +33,9 @@ body {
   }
 
 .title-font {
-    font-family: cursive;
-    font-size: 3rem;
+    font-family: "Imperial Script", cursive;
+    font-weight: 400;
+    font-size: 6rem;
 }
   
   .nav-links {
