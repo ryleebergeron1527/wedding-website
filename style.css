@@ -78,6 +78,15 @@ body {
       flex-direction: column;
       align-items: center;
     }
+
+    .hero-banner img {
+      height: 180px;
+    }
+
+    .wedding-crest img {
+      max-width: 80%; /* shrink to 80% of container on small screens */
+    }
+    
   }
 
 * {
@@ -89,6 +98,12 @@ html, body {
     overflow-x: hidden;
 }
   
+
+.questions {
+  font-family: "Playfair Display", serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
 .details {
     margin: 2rem auto;
