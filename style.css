@@ -227,3 +227,49 @@ footer {
   .wedding-location {
     font-family: "Petit Formal Script", cursive;
   }
+
+  .party-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;   /* left = guys, right = girls on desktop */
+    gap: var(--gap);
+    align-items: start;
+    margin-top: 1.5rem;
+  }
+  
+  .party-column {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: clamp(16px, 3vw, 24px);
+  }
+  
+  .wp-column-title {
+    margin: 0 0 0.5rem;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .wp-list {
+    list-style: none;   /* removes bullets */
+    padding: 0;         /* removes left indent */
+    margin: 0;          /* optional: tightens spacing */
+  }
+  
+
+  .wp-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee; /* optional dividers */
+  }
+  .wp-list li:last-child {
+    border-bottom: none; /* no divider after last name */
+  }
+  
+  
+  /* Mobile: keep one column, same order */
+  @media (max-width: 700px) {
+    .wedding-party { text-align: center; }
+    .wp-block { text-align: center; }
+    .party-grid {
+      grid-template-columns: 1fr;     /* stack */
+    }
+  }
