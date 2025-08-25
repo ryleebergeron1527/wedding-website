@@ -27,7 +27,7 @@ body {
 .title-font {
     font-family: "Petit Formal Script", cursive;
     font-weight: 800;
-    font-size: 5rem;
+    font-size: 6rem;
 
 }
   
@@ -101,7 +101,7 @@ html, body {
 
 .questions {
   font-family: "Playfair Display", serif;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
 }
 
@@ -233,7 +233,7 @@ footer {
     grid-template-columns: 1fr 1fr;   /* left = guys, right = girls on desktop */
     gap: var(--gap);
     align-items: start;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
   }
   
   .party-column {
@@ -273,3 +273,301 @@ footer {
       grid-template-columns: 1fr;     /* stack */
     }
   }
+
+  .home-title {
+    font-family: "Petit Formal Script", cursive;
+    font-size: 1.8rem;
+  }
+
+  /* Travel page layout */
+.travel-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 36px);
+  text-align: center;
+}
+
+.travel-page h1 { margin: 0 0 .5rem; }
+
+.blue-accent {
+  width: 140px;
+  height: 4px;
+  background: #90be81; 
+  border-radius: 999px;
+  margin: .5rem auto 1.25rem;
+}
+
+.travel-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: clamp(16px, 3.5vw, 28px);
+  text-align: left;
+  margin: 0 auto clamp(16px, 3vw, 24px);
+}
+
+/* lead paragraph under Airport */
+.travel-lead {
+  margin: .25rem 0 0;
+  line-height: 1.6;
+}
+
+/* hotel blocks */
+.hotel + .hotel {
+  margin-top: clamp(14px, 2.5vw, 18px);
+  padding-top: clamp(14px, 2.5vw, 18px);
+  border-top: 1px solid #f0f0f0;
+}
+
+.hotel-header {
+  font-family: "Petit Formal Script", cursive;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hotel-name {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+  font-weight: 700;
+}
+
+.hotel-note {
+  margin: .35rem 0 .75rem;
+  color: #333;
+}
+
+/* button-style links */
+.btn {
+  display: inline-block;
+  padding: .65rem 1rem;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  line-height: 1;
+  transition: transform .05s ease-in-out, opacity .15s;
+}
+.btn:hover { opacity: .92; transform: translateY(-1px); }
+
+/* responsive niceties */
+@media (max-width: 600px) {
+  .travel-page { text-align: center; }
+  .travel-card { text-align: left; }
+  .hotel-header { flex-direction: column; align-items: flex-start; }
+}
+
+
+
+/* Things to Do page */
+.things-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 36px);
+  text-align: center;
+}
+
+.title-font {
+  font-family: "Petit Formal Script", cursive;
+}
+
+.subtitle {
+  font-family: "Petit Formal Script", cursive;
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  margin: 0 0 0.5rem;
+}
+
+.things-page p,
+.things-list {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  line-height: 1.6;
+  text-align: left;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.blue-accent {
+  width: 140px;
+  height: 4px;
+  background: #2b6cb0;
+  border-radius: 999px;
+  margin: .5rem auto 1.5rem;
+}
+
+.things-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: clamp(16px, 3.5vw, 28px);
+  margin: 0 auto clamp(16px, 3vw, 24px);
+  text-align: left;
+}
+
+.things-list {
+  list-style: none; /* remove bullets */
+  padding: 0;
+}
+
+.things-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.things-list li:last-child {
+  border-bottom: none;
+}
+
+/* Fonts already loaded elsewhere:
+   - "Petit Formal Script", cursive (for headings)
+   - "Playfair Display", serif (for body) */
+
+   .registry-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: clamp(16px, 4vw, 36px);
+    text-align: center;
+  }
+  
+  .title-font {
+    font-family: "Petit Formal Script", cursive;
+  }
+  
+  .blue-accent {
+    width: 140px;
+    height: 4px;
+    background: #2b6cb0; /* match your “something blue” */
+    border-radius: 999px;
+    margin: .5rem auto 1.5rem;
+  }
+  
+  /* Card that holds all registry items */
+  .registry-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    padding: clamp(16px, 3.5vw, 28px);
+    text-align: left;
+    margin: 0 auto clamp(16px, 3vw, 24px);
+  }
+  
+  /* Each registry row */
+  .registry-item + .registry-item {
+    margin-top: clamp(14px, 2.5vw, 18px);
+    padding-top: clamp(14px, 2.5vw, 18px);
+    border-top: 1px solid #f0f0f0;
+  }
+  
+  .registry-name {
+    font-family: "Petit Formal Script", cursive;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    margin: 0 0 .25rem;
+  }
+  
+  .registry-note {
+    font-family: "Playfair Display", serif;
+    margin: 0 0 .75rem;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .btn {
+    display: inline-block;
+    font-family: "Playfair Display", serif;
+    padding: .65rem 1rem;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    text-decoration: none;
+    line-height: 1;
+    transition: transform .05s ease-in-out, opacity .15s;
+  }
+  .btn:hover { opacity: .92; transform: translateY(-1px); }
+  
+  /* Keep it tidy on mobile */
+  @media (max-width: 600px) {
+    .registry-card { text-align: left; }
+  }
+
+
+  /* Page shell */
+.rsvp-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 36px);
+  text-align: center;
+}
+
+.title-font { font-family: "Petit Formal Script", cursive; }
+.info-font  { font-family: "Playfair Display", serif; }
+
+.blue-accent {
+  width: 140px;
+  height: 4px;
+  background: #2b6cb0; /* your something blue */
+  border-radius: 999px;
+  margin: .5rem auto 1.25rem;
+}
+
+/* Card that holds the form */
+.rsvp-card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: clamp(16px, 3.5vw, 28px);
+  text-align: left;
+  margin: 0 auto clamp(16px, 3vw, 24px);
+}
+
+/* Text intro */
+.rsvp-intro {
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+/* Responsive iframe wrapper (keeps it tidy on mobile) */
+.form-frame {
+  position: relative;
+  width: 100%;
+  max-width: 760px;     /* Google Forms look good around this width */
+  margin: 0 auto;
+  aspect-ratio: 3 / 4;  /* adjusts height responsively */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+}
+
+.form-frame iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+}
+
+/* Fallback link style */
+.rsvp-alt {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  font-family: "Playfair Display", serif;
+  padding: .65rem 1rem;
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  text-decoration: none;
+  line-height: 1;
+  transition: transform .05s ease-in-out, opacity .15s;
+}
+.btn:hover { opacity: .92; transform: translateY(-1px); }
+
+/* Tighten on small screens */
+@media (max-width: 600px) {
+  .rsvp-card { padding: 16px; }
+  .form-frame { max-width: 100%; aspect-ratio: 2.8 / 4; }
+}
+
+  
+ 

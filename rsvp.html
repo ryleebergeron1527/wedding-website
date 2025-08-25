@@ -23,32 +23,40 @@
     </nav>
   </header>
 
-  <main>
-    <p>RSVP page coming soon!</p>
-    <!-- <section>
-      <h2>Kindly Respond</h2>
-      <form action="https://formspree.io/f/mqaqwloa" method="POST">
-        <label>Name:<br>
-          <input type="text" name="name" required>
-        </label><br><br>
-
-        <label>Will you attend?<br>
-          <input type="radio" name="attending" value="Yes" required> Yes
-          <input type="radio" name="attending" value="No"> No
-        </label><br><br>
-
-        <label>Entrée Selection:<br>
-          <select name="dinner">
-            <option value="chicken">Chicken</option>
-            <option value="steak">Steak</option>
-            <option value="vegetarian">Vegetarian</option>
-          </select>
-        </label><br><br>
-
-        <button type="submit">Submit</button>
-      </form>
-    </section> -->
+  <main class="rsvp-page">
+    <h1 class="title-font">RSVP</h1>
+    <div class="blue-accent" aria-hidden="true"></div>
+  
+    <section class="rsvp-card">
+      <p class="info-font rsvp-intro">
+        Please let us know if you’ll be joining us, and share your dinner selections.
+      </p>
+  
+      <!-- ✅ Replace the src below with your Google Form's embed URL -->
+      <div class="form-frame">
+        <iframe
+          src="https://docs.google.com/forms/d/e/1FAIpQLSfzuAeVUG2mPuJa1lLNNIhzOD0OEhBu8XmQNyfWjhqCXWOf8A/viewform?usp=sharing&ouid=104156972742999372907"
+          width="100%"
+          height="100%"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          title="RSVP Form"
+          loading="lazy"
+        >
+          Loading…
+        </iframe>
+      </div>
+  
+      <!-- Optional direct link if embed doesn’t load -->
+      <p class="info-font rsvp-alt"> Having trouble viewing the form?  </p>
+        <a class="btn" href="https://docs.google.com/forms/d/e/YOUR_GOOGLE_FORM_ID/viewform" target="_blank" rel="noopener">
+          Open RSVP in a new tab
+        </a>
+     
+    </section>
   </main>
+  
 
   <footer>
     <p>© 2025 Rylee Bergeron</p>
