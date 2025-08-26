@@ -135,6 +135,7 @@ footer {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     padding: 2rem;
+    font-family: "Playfair Display", serif;
 }
   
 .party-card img {
@@ -253,12 +254,16 @@ footer {
     list-style: none;   /* removes bullets */
     padding: 0;         /* removes left indent */
     margin: 0;          /* optional: tightens spacing */
+    font-family: "Playfair Display", cursive;
+
   }
   
 
   .wp-list li {
     padding: 8px 0;
     border-bottom: 1px solid #eee; /* optional dividers */
+    font-family: "Playfair Display", cursive;
+
   }
   .wp-list li:last-child {
     border-bottom: none; /* no divider after last name */
