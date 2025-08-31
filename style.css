@@ -50,7 +50,7 @@ body {
   }
   
   .nav-links a:hover {
-    color: #ee96b1; /* Pink accent color */
+    color: #ee96b1; 
   }
   
   
@@ -134,7 +134,7 @@ footer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
-    padding: 2rem;
+    padding: 0.5rem;
     font-family: "Playfair Display", serif;
 }
   
@@ -572,6 +572,15 @@ footer {
 @media (max-width: 600px) {
   .rsvp-card { padding: 16px; }
   .form-frame { max-width: 100%; aspect-ratio: 2.8 / 4; }
+}
+
+.something-blue {
+  margin: 30px;
+}
+
+.flowerandring {
+  margin: 20px;
+  font-size: larger;
 }
 
   
