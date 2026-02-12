@@ -100,8 +100,14 @@ function submitRSVP() {
     return;
   }
 
+  // (Optional) extra safety check: ensure URL looks like an Apps Script web app
+  if (!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(RSVP_POST_URL)) {
+    alert("RSVP_POST_URL doesn't look right (should end with /exec).");
+    return;
+  }
+
   const payload = {
-    name: currentGuest.name, // we write back using the exact sheet cell value
+    name: currentGuest.name, // write back using the exact sheet cell value
     wedding: document.getElementById("wedding").value,
     welcome:
       normalize(currentGuest.welcome) === "yes"
