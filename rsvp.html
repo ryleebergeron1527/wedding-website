@@ -25,47 +25,46 @@
     </nav>
   </header>
 
-  <main>
-    <h1 class="title-font">RSVP</h1>
-    <p>RSVP Page will come following the formal invitation! </p>
-  </main>
+<div class="rsvp-container">
+  <h1 class="title-font">RSVP</h1>
 
-  <!-- <main class="rsvp-page">
-    <h1 class="title-font">RSVP</h1>
-    <div class="blue-accent" aria-hidden="true"></div>
-  
-    <section class="rsvp-card">
-      <p class="info-font rsvp-intro">
-        Please let us know if you’ll be joining us, and share your dinner selections.
-      </p>
-  
-      <div class="form-frame">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSfzuAeVUG2mPuJa1lLNNIhzOD0OEhBu8XmQNyfWjhqCXWOf8A/viewform?usp=sharing&ouid=104156972742999372907"
-          width="100%"
-          height="100%"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          title="RSVP Form"
-          loading="lazy"
-        >
-          Loading…
-        </iframe>
-      </div>
-  
-      <p class="info-font rsvp-alt"> Having trouble viewing the form?  </p>
-        <a class="btn" href="https://docs.google.com/forms/d/e/YOUR_GOOGLE_FORM_ID/viewform" target="_blank" rel="noopener">
-          Open RSVP in a new tab
-        </a>
-     
-    </section>
-  </main> -->
-  
+  <input id="nameInput" placeholder="Enter your full name" />
+  <button onclick="findGuest()">Find My Invitation</button>
 
+  <div id="rsvpForm" style="display:none;">
+    <p id="guestName"></p>
+
+    <div>
+      <label>Wedding</label>
+      <select id="wedding">
+        <option value="yes">Accepts</option>
+        <option value="no">Declines</option>
+      </select>
+    </div>
+
+    <div id="welcomeSection">
+      <label>Welcome Party</label>
+      <select id="welcome">
+        <option value="yes">Accepts</option>
+        <option value="no">Declines</option>
+      </select>
+    </div>
+
+    <div id="rehearsalSection">
+      <label>Rehearsal Dinner</label>
+      <select id="rehearsal">
+        <option value="yes">Accepts</option>
+        <option value="no">Declines</option>
+      </select>
+    </div>
+
+    <button onclick="submitRSVP()">Submit RSVP</button>
+  </div>
+</div>
   <footer>
     <p>© 2025 Rylee Bergeron</p>
   </footer>
+  <script src="script.js"></script>
 </body>
 </html>
 
