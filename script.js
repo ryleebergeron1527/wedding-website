@@ -246,19 +246,3 @@ function submitRSVP() {
     });
 }
 
-
-  fetch(RSVP_POST_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(payload),
-  })
-    .then((r) => r.text())
-    .then((txt) => {
-      console.log("Apps Script response:", txt);
-      alert("RSVP received! Thank you 💕");
-    })
-    .catch((err) => {
-      console.error("Failed to submit RSVP:", err);
-      alert("Something went wrong submitting your RSVP.");
-    });
-}
