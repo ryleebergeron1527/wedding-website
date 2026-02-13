@@ -120,7 +120,7 @@ window.findGuest = function findGuest() {
 
   renderPartyCard(count, invitedWelcome, invitedRehearsal);
 
-  document.getElementById("rsvpForm").style.display = "block";
+  document.getElementById("rsvpForm").style.display = "flex";
 };
 
 
