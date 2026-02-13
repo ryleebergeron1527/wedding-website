@@ -4,7 +4,7 @@ const GUESTS_URL =
 
 // WRITE RSVPs
 const RSVP_POST_URL =
-"https://script.google.com/https://script.google.com/macros/s/AKfycbwmlXeV4rVNfZ_slZdOpf1dhqibqx5QZ0JlE_XMYfQmqRjgYIrJSciGdo-53mi5rTj42g/exec/s/AKfycbwayLDMuSwHxB6-3RL25kthkRjQIUy0m5kXDFnUL5cz4gZ1sQZyYvycasHe0k8LDj_WYQ/exec"
+"https://script.google.com/macros/s/AKfycbweLOg_JtxO7nyF8JY5BE88RkZWL10lYdaVz0BY5WCRjGRjhqod2ApBMndisV32dZRwxQ/exec"
 
 let guests = [];
 let currentGuest = null;
@@ -191,7 +191,7 @@ function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
     </div>
     ${rowsHtml}
   `;
-}window.submitRSVP = function submitRSVP() {
+window.submitRSVP = function submitRSVP() {
   if (!currentGuest) {
     alert("Please search your name first.");
     return;
@@ -213,22 +213,24 @@ function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
     if (invitedRehearsal) rehearsalArr.push(document.getElementById(`p${i}_rehearsal`).value);
   }
 
-  // Fill hidden form
-  document.getElementById("form_row_name").value = currentGuest.name;
-  document.getElementById("form_rsvp_wedding").value = weddingArr.join(",");
-  document.getElementById("form_rsvp_welcome").value = welcomeArr.join(",");
-  document.getElementById("form_rsvp_rehearsal").value = rehearsalArr.join(",");
+  const payload = {
+    row_name: currentGuest.name,
+    rsvp_wedding: weddingArr.join(","),
+    rsvp_welcome: welcomeArr.join(","),
+    rsvp_rehearsal: rehearsalArr.join(","),
+  };
 
-  // Submit
-  const form = document.getElementById("rsvpPostForm");
-  form.action =
-    "https://script.google.com/macros/s/AKfycbw0uC4LSHTpIjcndidzN3kB536ljCrRWjlsiR4vzYgxNiYYv_diVw87_leO6WQGP5Rdyw/exec";
+  // Send the request (browser won’t let us read response in no-cors)
+  fetch(RSVP_POST_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload),
+  });
 
-  form.submit();
-
-  // Optimistic success (because we can’t reliably read cross-origin response)
   alert("RSVP received! Thank you 💕");
 };
+
 
 
 window.resetRSVP = function resetRSVP() {
