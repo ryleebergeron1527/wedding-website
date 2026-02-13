@@ -40,16 +40,14 @@
       <button class="rsvp-reset" type="button" onclick="resetRSVP()">Search Another Name</button>
     </div>
 
-      <!-- Hidden iframe so the page doesn't navigate away -->
-  <iframe name="rsvp_iframe" style="display:none;"></iframe>
+ <iframe name="rsvp_iframe" style="display:none;"></iframe>
 
-  <!-- Hidden form that POSTS to Apps Script without CORS issues -->
-  <form id="rsvpPostForm" method="POST" target="rsvp_iframe" style="display:none;">
-    <input type="hidden" name="row_name" id="form_row_name" />
-    <input type="hidden" name="rsvp_wedding" id="form_rsvp_wedding" />
-    <input type="hidden" name="rsvp_welcome" id="form_rsvp_welcome" />
-    <input type="hidden" name="rsvp_rehearsal" id="form_rsvp_rehearsal" />
-  </form>
+<form id="rsvpPostForm" method="POST" target="rsvp_iframe" style="display:none;">
+  <input type="hidden" name="row_name" id="form_row_name" />
+  <input type="hidden" name="rsvp_wedding" id="form_rsvp_wedding" />
+  <input type="hidden" name="rsvp_welcome" id="form_rsvp_welcome" />
+  <input type="hidden" name="rsvp_rehearsal" id="form_rsvp_rehearsal" />
+</form>
 
 
   <footer>

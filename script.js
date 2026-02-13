@@ -4,7 +4,7 @@ const GUESTS_URL =
 
 // WRITE RSVPs
 const RSVP_POST_URL =
-"https://script.google.com/macros/s/AKfycbweLOg_JtxO7nyF8JY5BE88RkZWL10lYdaVz0BY5WCRjGRjhqod2ApBMndisV32dZRwxQ/exec"
+"https://script.google.com/macros/s/AKfycbwSSpNq4wcz3kG4PeFKBZH44M57SyMH4dOQIYK_zcbX-nUaAyaB6SM50xhMdp_8oGUQGg/exec";
 
 let guests = [];
 let currentGuest = null;
@@ -191,6 +191,8 @@ function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
     </div>
     ${rowsHtml}
   `;
+}
+
 window.submitRSVP = function submitRSVP() {
   if (!currentGuest) {
     alert("Please search your name first.");
@@ -213,30 +215,34 @@ window.submitRSVP = function submitRSVP() {
     if (invitedRehearsal) rehearsalArr.push(document.getElementById(`p${i}_rehearsal`).value);
   }
 
-  const payload = {
-    row_name: currentGuest.name,
-    rsvp_wedding: weddingArr.join(","),
-    rsvp_welcome: welcomeArr.join(","),
-    rsvp_rehearsal: rehearsalArr.join(","),
-  };
+  // Fill hidden form fields
+  document.getElementById("form_row_name").value = currentGuest.name;
+  document.getElementById("form_rsvp_wedding").value = weddingArr.join(",");
+  document.getElementById("form_rsvp_welcome").value = welcomeArr.join(",");
+  document.getElementById("form_rsvp_rehearsal").value = rehearsalArr.join(",");
 
-  // Send the request (browser won’t let us read response in no-cors)
-  fetch(RSVP_POST_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(payload),
-  });
+  // Submit the form to Apps Script
+  const form = document.getElementById("rsvpPostForm");
+  form.action =
+    RSVP_POST_URL;
+
+  form.submit();
 
   alert("RSVP received! Thank you 💕");
 };
 
 
 
+
 window.resetRSVP = function resetRSVP() {
   currentGuest = null;
+
   document.getElementById("partyCard").innerHTML = "";
   document.getElementById("rsvpForm").style.display = "none";
-  document.getElementById("nameInput").value = "";
-  document.getElementById("nameInput").focus();
+
+  const input = document.getElementById("nameInput");
+  if (input) {
+    input.value = "";
+    input.focus();
+  }
 };
