@@ -4,7 +4,7 @@ const GUESTS_URL =
 
 // WRITE RSVPs
 const RSVP_POST_URL =
-"https://script.google.com/macros/s/AKfycbwayLDMuSwHxB6-3RL25kthkRjQIUy0m5kXDFnUL5cz4gZ1sQZyYvycasHe0k8LDj_WYQ/exec"
+"https://script.google.com/https://script.google.com/macros/s/AKfycbwmlXeV4rVNfZ_slZdOpf1dhqibqx5QZ0JlE_XMYfQmqRjgYIrJSciGdo-53mi5rTj42g/exec/s/AKfycbwayLDMuSwHxB6-3RL25kthkRjQIUy0m5kXDFnUL5cz4gZ1sQZyYvycasHe0k8LDj_WYQ/exec"
 
 let guests = [];
 let currentGuest = null;
@@ -192,7 +192,6 @@ function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
     ${rowsHtml}
   `;
 }
-
 window.submitRSVP = function submitRSVP() {
   if (!currentGuest) {
     alert("Please search your name first.");
@@ -215,33 +214,23 @@ window.submitRSVP = function submitRSVP() {
     if (invitedRehearsal) rehearsalArr.push(document.getElementById(`p${i}_rehearsal`).value);
   }
 
-  const payload = {
-    row_name: currentGuest.name,
-    rsvp_wedding: weddingArr.join(","),
-    rsvp_welcome: welcomeArr.join(","),
-    rsvp_rehearsal: rehearsalArr.join(","),
-  };
+  // Fill hidden form inputs
+  document.getElementById("form_row_name").value = currentGuest.name;
+  document.getElementById("form_rsvp_wedding").value = weddingArr.join(",");
+  document.getElementById("form_rsvp_welcome").value = welcomeArr.join(",");
+  document.getElementById("form_rsvp_rehearsal").value = rehearsalArr.join(",");
 
-  fetch(RSVP_POST_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify(payload),
-  })
-    .then(async (r) => {
-      const txt = await r.text();
-      console.log("Apps Script status:", r.status);
-      console.log("Apps Script response:", txt);
+  // Point the form at your Apps Script URL
+  const form = document.getElementById("rsvpPostForm");
+  form.action = RSVP_POST_URL;
 
-      if (!r.ok) throw new Error(`HTTP ${r.status}: ${txt}`);
-      if (!txt.includes("success")) throw new Error(txt);
+  // Submit without CORS problems
+  form.submit();
 
-      alert("RSVP received! Thank you 💕");
-    })
-    .catch((err) => {
-      console.error("Submit RSVP error:", err);
-      alert(`Something went wrong submitting your RSVP: ${err.message}`);
-    });
+  // Show success (we can't reliably read the response due to cross-origin)
+  alert("RSVP received! Thank you 💕");
 };
+
 
 window.resetRSVP = function resetRSVP() {
   currentGuest = null;
