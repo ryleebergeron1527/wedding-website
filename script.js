@@ -1,53 +1,18 @@
+// READ guests
 const GUESTS_URL =
   "https://opensheet.elk.sh/1Ow0l9Bo7DUYO3RlYFwCmZbHZXrh7MGbCUgJwL34UTlU/Sheet1";
 
+// WRITE RSVPs
 const RSVP_POST_URL =
-  "https://script.google.com/macros/s/AKfycbw0uC4LSHTpIjcndidzN3kB536ljCrRWjlsiR4vzYgxNiYYv_diVw87_leO6WQGP5Rdyw/exec";
+  "https://script.google.com/macrohttps://script.google.com/macros/s/AKfycbwayLDMuSwHxB6-3RL25kthkRjQIUy0m5kXDFnUL5cz4gZ1sQZyYvycasHe0k8LDj_WYQ/execs/s/AKfycbw0uC4LSHTpIjcndidzN3kB536ljCrRWjlsiR4vzYgxNiYYv_diVw87_leO6WQGP5Rdyw/exec";
 
 let guests = [];
 let currentGuest = null;
 
-function escapeHtml(str) {
-  return String(str || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-// Creates pill UI that writes to a hidden input value (yes/no)
-function makePills(idYes, idNo, hiddenId, defaultValue = "yes") {
-  return `
-    <input type="hidden" id="${hiddenId}" value="${defaultValue}">
-    <div class="pills" role="group" aria-label="RSVP choices">
-      <button type="button" class="pill selected" id="${idYes}" onclick="setPill('${hiddenId}','${idYes}','${idNo}','yes')">Accepts</button>
-      <button type="button" class="pill" id="${idNo}" onclick="setPill('${hiddenId}','${idYes}','${idNo}','no')">Declines</button>
-    </div>
-  `;
-}
-
-function setPill(hiddenId, yesBtnId, noBtnId, value) {
-  document.getElementById(hiddenId).value = value;
-  const yesBtn = document.getElementById(yesBtnId);
-  const noBtn = document.getElementById(noBtnId);
-
-  if (value === "yes") {
-    yesBtn.classList.add("selected");
-    noBtn.classList.remove("selected");
-  } else {
-    noBtn.classList.add("selected");
-    yesBtn.classList.remove("selected");
-  }
-}
-
-
 fetch(GUESTS_URL)
   .then((res) => res.json())
   .then((data) => {
-    guests = (data || []).filter(
-      (g) => g && typeof g.name === "string" && g.name.trim() !== ""
-    );
+    guests = (data || []).filter((g) => g && typeof g.name === "string" && g.name.trim() !== "");
     console.log("Guest list loaded:", guests.length);
   })
   .catch((err) => {
@@ -63,6 +28,10 @@ function normalize(s) {
     .trim();
 }
 
+function getTokens(s) {
+  return normalize(s).split(" ").filter(Boolean);
+}
+
 function splitNames(cell) {
   return String(cell || "")
     .split(",")
@@ -70,16 +39,48 @@ function splitNames(cell) {
     .filter(Boolean);
 }
 
-function getTokens(s) {
-  return normalize(s).split(" ").filter(Boolean);
-}
-
 function containsAllTokens(targetName, inputTokens) {
   const targetTokens = getTokens(targetName);
   return inputTokens.every((t) => targetTokens.includes(t));
 }
 
-function findGuest() {
+function escapeHtml(str) {
+  return String(str || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+// Pills UI -> writes value into hidden input
+function makePills(idYes, idNo, hiddenId, defaultValue = "yes") {
+  return `
+    <input type="hidden" id="${hiddenId}" value="${defaultValue}">
+    <div class="pills" role="group" aria-label="RSVP choices">
+      <button type="button" class="pill selected" id="${idYes}"
+        onclick="setPill('${hiddenId}','${idYes}','${idNo}','yes')">Accepts</button>
+      <button type="button" class="pill" id="${idNo}"
+        onclick="setPill('${hiddenId}','${idYes}','${idNo}','no')">Declines</button>
+    </div>
+  `;
+}
+
+window.setPill = function setPill(hiddenId, yesBtnId, noBtnId, value) {
+  document.getElementById(hiddenId).value = value;
+  const yesBtn = document.getElementById(yesBtnId);
+  const noBtn = document.getElementById(noBtnId);
+
+  if (value === "yes") {
+    yesBtn.classList.add("selected");
+    noBtn.classList.remove("selected");
+  } else {
+    noBtn.classList.add("selected");
+    yesBtn.classList.remove("selected");
+  }
+};
+
+window.findGuest = function findGuest() {
   const inputRaw = document.getElementById("nameInput").value;
   const inputTokens = getTokens(inputRaw);
 
@@ -88,13 +89,13 @@ function findGuest() {
     return;
   }
 
-  // Match by first+last tokens against any person in the comma-separated name cell
+  // Match if ANY individual listed in row matches the input tokens
   currentGuest = guests.find((g) => {
     const people = splitNames(g.name);
     return people.some((person) => containsAllTokens(person, inputTokens));
   });
 
-  // Backup: partial match
+  // Backup: partial match against full row name
   if (!currentGuest) {
     const input = normalize(inputRaw);
     currentGuest = guests.find((g) => normalize(g.name).includes(input));
@@ -105,21 +106,20 @@ function findGuest() {
     return;
   }
 
-  document.getElementById("guestName").innerText = `Hi ${currentGuest.name}!`;
+  const rawCount = parseInt(currentGuest.count || "1", 10);
+  const count = Math.min(4, Math.max(1, Number.isFinite(rawCount) ? rawCount : 1));
 
-  const count = Math.max(1, parseInt(currentGuest.count || "1", 10) || 1);
   const invitedWelcome = normalize(currentGuest.welcome) === "yes";
   const invitedRehearsal = normalize(currentGuest.rehearsal) === "yes";
 
-  renderPeopleForms(count, invitedWelcome, invitedRehearsal);
+  renderPartyCard(count, invitedWelcome, invitedRehearsal);
 
   document.getElementById("rsvpForm").style.display = "block";
-}
+};
 
-function renderPeopleForms(count, invitedWelcome, invitedRehearsal) {
+function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
   const party = document.getElementById("partyCard");
 
-  // Prefill names from the sheet’s comma-separated list (nice + pro)
   const listedNames = String(currentGuest.name || "")
     .split(",")
     .map((s) => s.trim())
@@ -132,14 +132,10 @@ function renderPeopleForms(count, invitedWelcome, invitedRehearsal) {
   ].join("");
 
   let rowsHtml = "";
-
   for (let i = 1; i <= count; i++) {
     const defaultName = listedNames[i - 1] || "";
 
-    // wedding pills are always shown
-    const weddingPills = makePills(
-      `p${i}_w_yes`, `p${i}_w_no`, `p${i}_wedding`, "yes"
-    );
+    const weddingPills = makePills(`p${i}_w_yes`, `p${i}_w_no`, `p${i}_wedding`, "yes");
 
     const welcomePills = invitedWelcome
       ? makePills(`p${i}_wp_yes`, `p${i}_wp_no`, `p${i}_welcome`, "yes")
@@ -195,9 +191,10 @@ function renderPeopleForms(count, invitedWelcome, invitedRehearsal) {
     ${rowsHtml}
   `;
 }
-function submitRSVP() {
+
+window.submitRSVP = function submitRSVP() {
   if (!currentGuest) {
-    alert("Please find your name first.");
+    alert("Please search your name first.");
     return;
   }
 
@@ -213,14 +210,8 @@ function submitRSVP() {
 
   for (let i = 1; i <= count; i++) {
     weddingArr.push(document.getElementById(`p${i}_wedding`).value);
-
-    if (invitedWelcome) {
-      welcomeArr.push(document.getElementById(`p${i}_welcome`).value);
-    }
-
-    if (invitedRehearsal) {
-      rehearsalArr.push(document.getElementById(`p${i}_rehearsal`).value);
-    }
+    if (invitedWelcome) welcomeArr.push(document.getElementById(`p${i}_welcome`).value);
+    if (invitedRehearsal) rehearsalArr.push(document.getElementById(`p${i}_rehearsal`).value);
   }
 
   const payload = {
@@ -235,14 +226,26 @@ function submitRSVP() {
     headers: { "Content-Type": "text/plain;charset=utf-8" },
     body: JSON.stringify(payload),
   })
-    .then((r) => r.text())
-    .then((txt) => {
+    .then(async (r) => {
+      const txt = await r.text();
+      console.log("Apps Script status:", r.status);
       console.log("Apps Script response:", txt);
+
+      if (!r.ok) throw new Error(`HTTP ${r.status}: ${txt}`);
+      if (!txt.includes("success")) throw new Error(txt);
+
       alert("RSVP received! Thank you 💕");
     })
     .catch((err) => {
-      console.error("Failed to submit RSVP:", err);
-      alert("Something went wrong submitting your RSVP.");
+      console.error("Submit RSVP error:", err);
+      alert(`Something went wrong submitting your RSVP: ${err.message}`);
     });
-}
+};
 
+window.resetRSVP = function resetRSVP() {
+  currentGuest = null;
+  document.getElementById("partyCard").innerHTML = "";
+  document.getElementById("rsvpForm").style.display = "none";
+  document.getElementById("nameInput").value = "";
+  document.getElementById("nameInput").focus();
+};

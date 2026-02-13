@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
   <title>Maddie & Tyler</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="rsvp.css" />
 </head>
 <body>
   <header>
@@ -25,15 +25,20 @@
     </nav>
   </header>
 
-<div class="rsvp-container">
-  <h1 class="title-font">RSVP</h1>
-<input id="nameInput" placeholder="Enter your full name" />
-<button type="button" onclick="findGuest()">Find My Invitation</button>
+<h1 class="title">RSVP</h1>
+    <p class="subtitle">Search your name to RSVP for your party.</p>
 
-<div id="rsvpForm" style="display:none;">
-  <div id="partyCard"></div>
-  <button class="rsvp-submit" type="button" onclick="submitRSVP()">Submit RSVP</button>
-</div>
+    <div class="search">
+      <input id="nameInput" class="search-input" placeholder="Enter your first and last name" />
+      <button type="button" class="search-btn" onclick="findGuest()">Find My Invitation</button>
+    </div>
+
+    <div id="rsvpForm" style="display:none;">
+      <div id="partyCard"></div>
+
+      <button class="rsvp-submit" type="button" onclick="submitRSVP()">Submit RSVP</button>
+      <button class="rsvp-reset" type="button" onclick="resetRSVP()">Search Another Name</button>
+    </div>
 
 
   <footer>
