@@ -7,6 +7,41 @@ const RSVP_POST_URL =
 let guests = [];
 let currentGuest = null;
 
+function escapeHtml(str) {
+  return String(str || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+// Creates pill UI that writes to a hidden input value (yes/no)
+function makePills(idYes, idNo, hiddenId, defaultValue = "yes") {
+  return `
+    <input type="hidden" id="${hiddenId}" value="${defaultValue}">
+    <div class="pills" role="group" aria-label="RSVP choices">
+      <button type="button" class="pill selected" id="${idYes}" onclick="setPill('${hiddenId}','${idYes}','${idNo}','yes')">Accepts</button>
+      <button type="button" class="pill" id="${idNo}" onclick="setPill('${hiddenId}','${idYes}','${idNo}','no')">Declines</button>
+    </div>
+  `;
+}
+
+function setPill(hiddenId, yesBtnId, noBtnId, value) {
+  document.getElementById(hiddenId).value = value;
+  const yesBtn = document.getElementById(yesBtnId);
+  const noBtn = document.getElementById(noBtnId);
+
+  if (value === "yes") {
+    yesBtn.classList.add("selected");
+    noBtn.classList.remove("selected");
+  } else {
+    noBtn.classList.add("selected");
+    yesBtn.classList.remove("selected");
+  }
+}
+
+
 fetch(GUESTS_URL)
   .then((res) => res.json())
   .then((data) => {
@@ -82,66 +117,83 @@ function findGuest() {
 }
 
 function renderPeopleForms(count, invitedWelcome, invitedRehearsal) {
-  const container = document.getElementById("peopleContainer");
-  container.innerHTML = "";
+  const party = document.getElementById("partyCard");
 
-  // OPTIONAL: pre-fill names from the sheet cell if it includes comma-separated names
+  // Prefill names from the sheet’s comma-separated list (nice + pro)
   const listedNames = String(currentGuest.name || "")
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
 
+  const badges = [
+    `<span class="badge">Wedding</span>`,
+    invitedWelcome ? `<span class="badge">Welcome Party</span>` : ``,
+    invitedRehearsal ? `<span class="badge">Rehearsal Dinner</span>` : ``,
+  ].join("");
+
+  let rowsHtml = "";
+
   for (let i = 1; i <= count; i++) {
     const defaultName = listedNames[i - 1] || "";
 
-    const card = document.createElement("div");
-    card.className = "person-card";
-    card.innerHTML = `
-      <h3>Guest ${i}</h3>
+    // wedding pills are always shown
+    const weddingPills = makePills(
+      `p${i}_w_yes`, `p${i}_w_no`, `p${i}_wedding`, "yes"
+    );
 
-      <label>Name (optional)</label>
-      <input type="text" id="p${i}_name" placeholder="Guest ${i} name" value="${escapeHtml(defaultName)}" />
+    const welcomePills = invitedWelcome
+      ? makePills(`p${i}_wp_yes`, `p${i}_wp_no`, `p${i}_welcome`, "yes")
+      : "";
 
-      <div class="event-block">
-        <label>Wedding</label>
-        <select id="p${i}_wedding">
-          <option value="yes">Accepts</option>
-          <option value="no">Declines</option>
-        </select>
+    const rehearsalPills = invitedRehearsal
+      ? makePills(`p${i}_rd_yes`, `p${i}_rd_no`, `p${i}_rehearsal`, "yes")
+      : "";
+
+    rowsHtml += `
+      <div class="person-row">
+        <div class="person-name">
+          <label>Guest ${i}</label>
+          <input id="p${i}_name" value="${escapeHtml(defaultName)}" placeholder="Guest ${i} name (optional)" />
+        </div>
+
+        <div class="events-grid">
+          <div class="event-line">
+            <div class="event-label">Wedding</div>
+            ${weddingPills}
+          </div>
+
+          ${
+            invitedWelcome
+              ? `<div class="event-line">
+                   <div class="event-label">Welcome Party</div>
+                   ${welcomePills}
+                 </div>`
+              : ``
+          }
+
+          ${
+            invitedRehearsal
+              ? `<div class="event-line">
+                   <div class="event-label">Rehearsal Dinner</div>
+                   ${rehearsalPills}
+                 </div>`
+              : ``
+          }
+        </div>
       </div>
-
-      ${invitedWelcome ? `
-      <div class="event-block">
-        <label>Welcome Party</label>
-        <select id="p${i}_welcome">
-          <option value="yes">Accepts</option>
-          <option value="no">Declines</option>
-        </select>
-      </div>
-      ` : ""}
-
-      ${invitedRehearsal ? `
-      <div class="event-block">
-        <label>Rehearsal Dinner</label>
-        <select id="p${i}_rehearsal">
-          <option value="yes">Accepts</option>
-          <option value="no">Declines</option>
-        </select>
-      </div>
-      ` : ""}
     `;
-
-    container.appendChild(card);
   }
-}
 
-function escapeHtml(str) {
-  return String(str || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  party.innerHTML = `
+    <div class="party-header">
+      <div>
+        <h3 class="party-title">${escapeHtml(currentGuest.name)}</h3>
+        <p class="party-subtitle">${count} guest${count === 1 ? "" : "s"} in this party</p>
+      </div>
+      <div class="invited-badges">${badges}</div>
+    </div>
+    ${rowsHtml}
+  `;
 }
 function submitRSVP() {
   if (!currentGuest) {
@@ -177,6 +229,23 @@ function submitRSVP() {
     rsvp_welcome: welcomeArr.join(","),
     rsvp_rehearsal: rehearsalArr.join(","),
   };
+
+  fetch(RSVP_POST_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload),
+  })
+    .then((r) => r.text())
+    .then((txt) => {
+      console.log("Apps Script response:", txt);
+      alert("RSVP received! Thank you 💕");
+    })
+    .catch((err) => {
+      console.error("Failed to submit RSVP:", err);
+      alert("Something went wrong submitting your RSVP.");
+    });
+}
+
 
   fetch(RSVP_POST_URL, {
     method: "POST",
