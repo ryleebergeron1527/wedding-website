@@ -4,7 +4,7 @@ const GUESTS_URL =
 
 // WRITE RSVPs
 const RSVP_POST_URL =
-  "https://script.google.com/macrohttps://script.google.com/macros/s/AKfycbwayLDMuSwHxB6-3RL25kthkRjQIUy0m5kXDFnUL5cz4gZ1sQZyYvycasHe0k8LDj_WYQ/execs/s/AKfycbw0uC4LSHTpIjcndidzN3kB536ljCrRWjlsiR4vzYgxNiYYv_diVw87_leO6WQGP5Rdyw/exec";
+"https://script.google.com/macros/s/AKfycbwayLDMuSwHxB6-3RL25kthkRjQIUy0m5kXDFnUL5cz4gZ1sQZyYvycasHe0k8LDj_WYQ/exec"
 
 let guests = [];
 let currentGuest = null;
