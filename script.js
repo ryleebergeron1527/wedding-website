@@ -6,6 +6,12 @@ const GUESTS_URL =
 const RSVP_POST_URL =
 "https://script.google.com/macros/s/AKfycbwSSpNq4wcz3kG4PeFKBZH44M57SyMH4dOQIYK_zcbX-nUaAyaB6SM50xhMdp_8oGUQGg/exec";
 
+document.addEventListener("DOMContentLoaded", () => {
+  const findBtn = document.getElementById("findBtn");
+  if (findBtn) findBtn.addEventListener("click", () => window.findGuest());
+});
+
+
 let guests = [];
 let currentGuest = null;
 
