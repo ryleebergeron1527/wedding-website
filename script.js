@@ -191,8 +191,7 @@ function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
     </div>
     ${rowsHtml}
   `;
-}
-window.submitRSVP = function submitRSVP() {
+}window.submitRSVP = function submitRSVP() {
   if (!currentGuest) {
     alert("Please search your name first.");
     return;
@@ -214,20 +213,20 @@ window.submitRSVP = function submitRSVP() {
     if (invitedRehearsal) rehearsalArr.push(document.getElementById(`p${i}_rehearsal`).value);
   }
 
-  // Fill hidden form inputs
+  // Fill hidden form
   document.getElementById("form_row_name").value = currentGuest.name;
   document.getElementById("form_rsvp_wedding").value = weddingArr.join(",");
   document.getElementById("form_rsvp_welcome").value = welcomeArr.join(",");
   document.getElementById("form_rsvp_rehearsal").value = rehearsalArr.join(",");
 
-  // Point the form at your Apps Script URL
+  // Submit
   const form = document.getElementById("rsvpPostForm");
-  form.action = RSVP_POST_URL;
+  form.action =
+    "https://script.google.com/macros/s/AKfycbw0uC4LSHTpIjcndidzN3kB536ljCrRWjlsiR4vzYgxNiYYv_diVw87_leO6WQGP5Rdyw/exec";
 
-  // Submit without CORS problems
   form.submit();
 
-  // Show success (we can't reliably read the response due to cross-origin)
+  // Optimistic success (because we can’t reliably read cross-origin response)
   alert("RSVP received! Thank you 💕");
 };
 
