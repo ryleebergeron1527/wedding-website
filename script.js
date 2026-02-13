@@ -117,6 +117,7 @@ window.findGuest = function findGuest() {
   document.getElementById("rsvpForm").style.display = "block";
 };
 
+
 function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
   const party = document.getElementById("partyCard");
 
