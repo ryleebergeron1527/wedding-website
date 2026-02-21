@@ -137,6 +137,33 @@
 .event-line .event-label {
   font-size: 14px;
   font-weight: 600;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.meal-diet select,
+.meal-diet input {
+  font-family: "Playfair Display", serif;
+  font-size: 14px;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 12px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.meal-diet select:focus,
+.meal-diet input:focus {
+  border-color: rgba(0,0,0,0.28);
+}
+
+/* NEW: date/time/location lines under each event */
+.event-meta {
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.8;
+  margin-top: 4px;
+  line-height: 1.25;
+  align-items: flex-start;
 }
 
 /* Pills */

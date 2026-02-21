@@ -25,39 +25,39 @@
     </nav>
   </header>
 
-<h1 class="title">RSVP</h1>
-    <p class="subtitle">Search your name to RSVP for your party.</p>
+  <h1 class="title">RSVP</h1>
+  <p class="subtitle">Search your name to RSVP for your party.</p>
 
-    <div class="search">
-      <input id="nameInput" class="search-input" placeholder="Enter your first and last name" />
-  <button type="button" class="search-btn" id="findBtn">Find My Invitation</button>
-    </div>
+  <div class="search">
+    <input id="nameInput" class="search-input" placeholder="Enter your first and last name" />
+    <button type="button" class="search-btn" id="findBtn">Find My Invitation</button>
+  </div>
 
-    <div id="rsvpForm" style="display:none;">
-      <div id="partyCard"></div>
+  <div id="rsvpForm" style="display:none;">
 
-      <button class="rsvp-submit" type="button" onclick="submitRSVP()">Submit RSVP</button>
-      <button class="rsvp-reset" type="button" onclick="resetRSVP()">Search Another Name</button>
-    </div>
 
- <iframe name="rsvp_iframe" style="display:none;"></iframe>
+    <div id="partyCard"></div>
 
-<form id="rsvpPostForm" method="POST" target="rsvp_iframe" style="display:none;">
-  <input type="hidden" name="row_name" id="form_row_name" />
-  <input type="hidden" name="rsvp_wedding" id="form_rsvp_wedding" />
-  <input type="hidden" name="rsvp_welcome" id="form_rsvp_welcome" />
-  <input type="hidden" name="rsvp_rehearsal" id="form_rsvp_rehearsal" />
-</form>
+    <button class="rsvp-submit" type="button" onclick="submitRSVP()">Submit RSVP</button>
+    <button class="rsvp-reset" type="button" onclick="resetRSVP()">Search Another Name</button>
+  </div>
 
+  <iframe name="rsvp_iframe" style="display:none;"></iframe>
+
+  <form id="rsvpPostForm" method="POST" target="rsvp_iframe" style="display:none;">
+    <input type="hidden" name="row_name" id="form_row_name" />
+    <input type="hidden" name="rsvp_wedding" id="form_rsvp_wedding" />
+    <input type="hidden" name="rsvp_welcome" id="form_rsvp_welcome" />
+    <input type="hidden" name="rsvp_rehearsal" id="form_rsvp_rehearsal" />
+
+    <input type="hidden" name="rsvp_meal" id="form_rsvp_meal" />
+    <input type="hidden" name="dietary_restrictions" id="form_dietary_restrictions" />
+  </form>
 
   <footer>
     <p>© 2025 Rylee Bergeron</p>
   </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-

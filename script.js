@@ -4,13 +4,31 @@ const GUESTS_URL =
 
 // WRITE RSVPs
 const RSVP_POST_URL =
-"https://script.google.com/macros/s/AKfycbwSSpNq4wcz3kG4PeFKBZH44M57SyMH4dOQIYK_zcbX-nUaAyaB6SM50xhMdp_8oGUQGg/exec";
+  "https://script.google.com/macros/s/AKfycbzhLfbbXOuNHFlaQ_Xdaowgsk-4k8-ISYnmwOevO10wZLXsfOtxdb5P85vS9SOWcdt35Q/exec";
+
+// DISPLAY ONLY
+const EVENT_DETAILS = {
+  wedding: {
+    label: "Wedding",
+    when: "Saturday, May 26, 2026 • 4:00 PM",
+    where: "Oak Hill Country Club • Rochester, NY",
+  },
+  welcome: {
+    label: "Welcome Party",
+    when: "Friday, May __, 2026 • __:__ PM",
+    where: "Location TBD",
+  },
+  rehearsal: {
+    label: "Rehearsal Dinner",
+    when: "Friday, May __, 2026 • __:__ PM",
+    where: "Location TBD",
+  },
+};
 
 document.addEventListener("DOMContentLoaded", () => {
   const findBtn = document.getElementById("findBtn");
   if (findBtn) findBtn.addEventListener("click", () => window.findGuest());
 });
-
 
 let guests = [];
 let currentGuest = null;
@@ -86,6 +104,43 @@ window.setPill = function setPill(hiddenId, yesBtnId, noBtnId, value) {
   }
 };
 
+function renderEventDetails(invitedWelcome, invitedRehearsal) {
+  const el = document.getElementById("eventDetails");
+  if (!el) return;
+
+  const items = [];
+
+  items.push(`
+    <div class="event-detail">
+      <div class="event-detail-title">${escapeHtml(EVENT_DETAILS.wedding.label)}</div>
+      <div class="event-detail-meta">${escapeHtml(EVENT_DETAILS.wedding.when)}</div>
+      <div class="event-detail-meta">${escapeHtml(EVENT_DETAILS.wedding.where)}</div>
+    </div>
+  `);
+
+  if (invitedWelcome) {
+    items.push(`
+      <div class="event-detail">
+        <div class="event-detail-title">${escapeHtml(EVENT_DETAILS.welcome.label)}</div>
+        <div class="event-detail-meta">${escapeHtml(EVENT_DETAILS.welcome.when)}</div>
+        <div class="event-detail-meta">${escapeHtml(EVENT_DETAILS.welcome.where)}</div>
+      </div>
+    `);
+  }
+
+  if (invitedRehearsal) {
+    items.push(`
+      <div class="event-detail">
+        <div class="event-detail-title">${escapeHtml(EVENT_DETAILS.rehearsal.label)}</div>
+        <div class="event-detail-meta">${escapeHtml(EVENT_DETAILS.rehearsal.when)}</div>
+        <div class="event-detail-meta">${escapeHtml(EVENT_DETAILS.rehearsal.where)}</div>
+      </div>
+    `);
+  }
+
+  el.innerHTML = `<div class="event-details">${items.join("")}</div>`;
+}
+
 window.findGuest = function findGuest() {
   const inputRaw = document.getElementById("nameInput").value;
   const inputTokens = getTokens(inputRaw);
@@ -95,13 +150,11 @@ window.findGuest = function findGuest() {
     return;
   }
 
-  // Match if ANY individual listed in row matches the input tokens
   currentGuest = guests.find((g) => {
     const people = splitNames(g.name);
     return people.some((person) => containsAllTokens(person, inputTokens));
   });
 
-  // Backup: partial match against full row name
   if (!currentGuest) {
     const input = normalize(inputRaw);
     currentGuest = guests.find((g) => normalize(g.name).includes(input));
@@ -118,11 +171,11 @@ window.findGuest = function findGuest() {
   const invitedWelcome = normalize(currentGuest.welcome) === "yes";
   const invitedRehearsal = normalize(currentGuest.rehearsal) === "yes";
 
+  renderEventDetails(invitedWelcome, invitedRehearsal);
   renderPartyCard(count, invitedWelcome, invitedRehearsal);
 
   document.getElementById("rsvpForm").style.display = "flex";
 };
-
 
 function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
   const party = document.getElementById("partyCard");
@@ -159,29 +212,58 @@ function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
           <input id="p${i}_name" value="${escapeHtml(defaultName)}" placeholder="Guest ${i} name (optional)" />
         </div>
 
+        <div class="meal-diet">
+          <div class="meal-field">
+            <label for="p${i}_meal">Entrée Choice</label>
+            <select id="p${i}_meal">
+              <option value="Braised Beef Short Rib">Braised Beef Short Rib</option>
+              <option value="Grilled Salmon">Grilled Salmon</option>
+              <option value="Chicken French">Chicken French</option>
+            </select>
+          </div>
+
+          <div class="diet-field">
+            <label for="p${i}_diet">Dietary Restrictions</label>
+            <input id="p${i}_diet" placeholder="e.g., gluten-free, nut allergy, vegetarian" />
+          </div>
+        </div>
+
         <div class="events-grid">
           <div class="event-line">
-            <div class="event-label">Wedding</div>
+            <div class="event-label">
+              ${escapeHtml(EVENT_DETAILS.wedding.label)}
+              <div class="event-meta">${escapeHtml(EVENT_DETAILS.wedding.when)}</div>
+              <div class="event-meta">${escapeHtml(EVENT_DETAILS.wedding.where)}</div>
+            </div>
             ${weddingPills}
           </div>
 
           ${
             invitedWelcome
               ? `<div class="event-line">
-                   <div class="event-label">Welcome Party</div>
-                   ${welcomePills}
-                 </div>`
+                  <div class="event-label">
+                    ${escapeHtml(EVENT_DETAILS.welcome.label)}
+                    <div class="event-meta">${escapeHtml(EVENT_DETAILS.welcome.when)}</div>
+                    <div class="event-meta">${escapeHtml(EVENT_DETAILS.welcome.where)}</div>
+                  </div>
+                  ${welcomePills}
+                </div>`
               : ``
           }
 
           ${
             invitedRehearsal
               ? `<div class="event-line">
-                   <div class="event-label">Rehearsal Dinner</div>
-                   ${rehearsalPills}
-                 </div>`
+                  <div class="event-label">
+                    ${escapeHtml(EVENT_DETAILS.rehearsal.label)}
+                    <div class="event-meta">${escapeHtml(EVENT_DETAILS.rehearsal.when)}</div>
+                    <div class="event-meta">${escapeHtml(EVENT_DETAILS.rehearsal.where)}</div>
+                  </div>
+                  ${rehearsalPills}
+                </div>`
               : ``
           }
+        </div>
         </div>
       </div>
     `;
@@ -215,10 +297,18 @@ window.submitRSVP = function submitRSVP() {
   const welcomeArr = [];
   const rehearsalArr = [];
 
+  const mealArr = [];
+  const dietArr = [];
+
   for (let i = 1; i <= count; i++) {
     weddingArr.push(document.getElementById(`p${i}_wedding`).value);
     if (invitedWelcome) welcomeArr.push(document.getElementById(`p${i}_welcome`).value);
     if (invitedRehearsal) rehearsalArr.push(document.getElementById(`p${i}_rehearsal`).value);
+
+    mealArr.push(document.getElementById(`p${i}_meal`).value);
+
+    const dietVal = document.getElementById(`p${i}_diet`).value.trim();
+    dietArr.push(dietVal === "" ? "None" : dietVal);
   }
 
   // Fill hidden form fields
@@ -227,23 +317,27 @@ window.submitRSVP = function submitRSVP() {
   document.getElementById("form_rsvp_welcome").value = welcomeArr.join(",");
   document.getElementById("form_rsvp_rehearsal").value = rehearsalArr.join(",");
 
+  // NEW
+  document.getElementById("form_rsvp_meal").value = mealArr.join(",");
+  document.getElementById("form_dietary_restrictions").value = dietArr.join(",");
+
   // Submit the form to Apps Script
   const form = document.getElementById("rsvpPostForm");
-  form.action =
-    RSVP_POST_URL;
-
+  form.action = RSVP_POST_URL;
   form.submit();
 
   alert("RSVP received! Thank you 💕");
 };
 
-
-
-
 window.resetRSVP = function resetRSVP() {
   currentGuest = null;
 
-  document.getElementById("partyCard").innerHTML = "";
+  const party = document.getElementById("partyCard");
+  if (party) party.innerHTML = "";
+
+  const details = document.getElementById("eventDetails");
+  if (details) details.innerHTML = "";
+
   document.getElementById("rsvpForm").style.display = "none";
 
   const input = document.getElementById("nameInput");
