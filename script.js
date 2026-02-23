@@ -10,18 +10,18 @@ const RSVP_POST_URL =
 const EVENT_DETAILS = {
   wedding: {
     label: "Wedding",
-    when: "Saturday, May 26, 2026 • 4:00 PM",
+    when: "Saturday, May 23, 2026 • 4:00 PM",
     where: "Oak Hill Country Club • Rochester, NY",
   },
   welcome: {
     label: "Welcome Party",
-    when: "Friday, May __, 2026 • __:__ PM",
-    where: "Location TBD",
+    when: "Friday, May 22, 2026 • 8:00 PM",
+    where: "Tony D's Restaruant",
   },
   rehearsal: {
     label: "Rehearsal Dinner",
-    when: "Friday, May __, 2026 • __:__ PM",
-    where: "Location TBD",
+    when: "Friday, May 22, 2026 • 6:30 PM",
+    where: "Tony D's Restaruant",
   },
 };
 
@@ -216,9 +216,9 @@ function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
           <div class="meal-field">
             <label for="p${i}_meal">Entrée Choice</label>
             <select id="p${i}_meal">
-              <option value="Braised Beef Short Rib">Braised Beef Short Rib</option>
-              <option value="Grilled Salmon">Grilled Salmon</option>
-              <option value="Chicken French">Chicken French</option>
+              <option value="Braised Beef Short Rib">8 hour Braised Beef Short Rib with thyme demi</option>
+              <option value="Grilled Salmon">Grilled Salmon in lemon butter sauce</option>
+              <option value="Chicken French">Chicken French with lemon sherry jus</option>
             </select>
           </div>
 
