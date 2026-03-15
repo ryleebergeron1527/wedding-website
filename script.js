@@ -216,9 +216,10 @@ function renderPartyCard(count, invitedWelcome, invitedRehearsal) {
           <div class="meal-field">
             <label for="p${i}_meal">Entrée Choice</label>
             <select id="p${i}_meal">
-              <option value="Braised Beef Short Rib">8 hour Braised Beef Short Rib with thyme demi</option>
-              <option value="Grilled Salmon">Grilled Salmon in lemon butter sauce</option>
-              <option value="Chicken French">Chicken French with lemon sherry jus</option>
+              <option value="" selected disabled>Choose your entrée</option>
+              <option value="Braised Beef Short Rib">Braised Beef Short Rib</option>
+              <option value="Grilled Salmon">Grilled Salmon</option>
+              <option value="Chicken French">Chicken French</option>
             </select>
           </div>
 
@@ -305,7 +306,8 @@ window.submitRSVP = function submitRSVP() {
     if (invitedWelcome) welcomeArr.push(document.getElementById(`p${i}_welcome`).value);
     if (invitedRehearsal) rehearsalArr.push(document.getElementById(`p${i}_rehearsal`).value);
 
-    mealArr.push(document.getElementById(`p${i}_meal`).value);
+    const mealVal = document.getElementById(`p${i}_meal`).value;
+    mealArr.push(mealVal === "" ? "None" : mealVal);
 
     const dietVal = document.getElementById(`p${i}_diet`).value.trim();
     dietArr.push(dietVal === "" ? "None" : dietVal);
